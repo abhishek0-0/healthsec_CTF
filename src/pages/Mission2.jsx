@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission2Bg from '../assets/mission1-bg.png'
+import mission2Bg from '../assets/m2bg.png'
+import m2Exhibit from '../assets/m2.png'
 
 const TOTAL_STEPS = 3
 const CORRECT_DATE = '2020-06-15'
-const FDA_EUA_URL = 'https://www.fda.gov/'
+const FDA_EUA_URL = 'https://www.fda.gov/news-events/press-announcements/coronavirus-covid-19-update-fda-revokes-emergency-use-authorization-chloroquine-and'
 const DATE_FORMAT_REGEX = /^\d{4}-\d{2}-\d{2}$/
 
 const STEP1_TITLE = 'Mission 2: The Mask of Science'
@@ -33,7 +34,7 @@ const STEP3_BODY =
   'Visit the official FDA revocation notice for hydroxychloroquine\'s Emergency Use Authorization (EUA).\n\nFind the exact date when the EUA was revoked.\n\nThat date is your flag.'
 
 const SUCCESS_CONGRATS =
-  'You traced the intervention. Official records beat viral narratives. Trust is rebuilt one verified date at a time.'
+  'You exposed how premature science can be weaponized.\n\nYou traced the intervention using official records — not headlines or authority figures. This reinforces an important skill: early studies and public statements are not final truth. Real verification means tracking official decisions, timelines, and evidence as it evolves.\n\nTrust is rebuilt one verified date at a time.'
 
 function isValidDateFormat(str) {
   if (!DATE_FORMAT_REGEX.test(str)) return false
@@ -61,6 +62,10 @@ function Mission2() {
 
   const goNext = () => {
     if (step < TOTAL_STEPS) setStep((s) => s + 1)
+  }
+
+  const goBack = () => {
+    if (step > 1) setStep((s) => s - 1)
   }
 
   const handleSubmitFinding = (e) => {
@@ -98,16 +103,18 @@ function Mission2() {
         />
         <div className="mission2-gradient" />
         <div className="mission2-overlay" />
+        <div className="mission2-scanline" aria-hidden="true" />
+        <div className="mission2-grid" aria-hidden="true" />
         <div className="mission2-particles">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {Array.from({ length: 28 }).map((_, i) => (
             <div
               key={i}
-              className={`mission2-particle mission2-particle-${i % 3}`}
+              className={`mission2-particle mission2-particle-${i % 4}`}
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
+                animationDelay: `${Math.random() * 2.5}s`,
+                animationDuration: `${3.5 + Math.random() * 2.5}s`
               }}
             />
           ))}
@@ -122,43 +129,56 @@ function Mission2() {
         {!isSuccess && step === 1 && (
           <div className="mission2-step mission2-step-enter">
             <h2 className="mission2-title">{STEP1_TITLE}</h2>
-            <div className="mission2-body-block">
+            <div className="mission2-body-block mission2-body-tight">
               {STEP1_BODY(agentName).split('\n').map((line, i) => (
-                <p key={i}>{line || '\u00A0'}</p>
+                <p key={i} className={line.trim() === '' ? 'mission2-body-blank' : ''}>{line || '\u00A0'}</p>
               ))}
             </div>
             <button type="button" className="mission2-btn mission2-btn-primary" onClick={goNext}>
               Continue
             </button>
+            <nav className="mission2-nav" aria-label="Step navigation">
+              <button type="button" className="mission2-nav-btn mission2-nav-next" onClick={goNext} aria-label="Next step">
+                →
+              </button>
+            </nav>
           </div>
         )}
 
         {!isSuccess && step === 2 && (
           <div className="mission2-step mission2-step-enter">
             <h2 className="mission2-title">{STEP2_TITLE}</h2>
-            <div className="mission2-body-block">
+            <div className="mission2-body-block mission2-body-tight">
               {STEP2_BODY.split('\n').map((line, i) => (
-                <p key={i}>{line || '\u00A0'}</p>
+                <p key={i} className={line.trim() === '' ? 'mission2-body-blank' : ''}>{line || '\u00A0'}</p>
               ))}
             </div>
             <div className="mission2-exhibit">
-              <div className="mission2-exhibit-frame">
-                <div className="mission2-exhibit-placeholder">Evidence image placeholder</div>
+              <div className="mission2-exhibit-frame mission2-exhibit-frame-glow">
+                <img src={m2Exhibit} alt="Exhibit A" className="mission2-exhibit-img" />
               </div>
               <span className="mission2-exhibit-caption">EXHIBIT A</span>
             </div>
             <button type="button" className="mission2-btn mission2-btn-primary" onClick={goNext}>
               Investigate the Evidence
             </button>
+            <nav className="mission2-nav" aria-label="Step navigation">
+              <button type="button" className="mission2-nav-btn mission2-nav-prev" onClick={goBack} aria-label="Previous step">
+                ←
+              </button>
+              <button type="button" className="mission2-nav-btn mission2-nav-next" onClick={goNext} aria-label="Next step">
+                →
+              </button>
+            </nav>
           </div>
         )}
 
         {!isSuccess && step === 3 && (
           <div className="mission2-step mission2-step-enter">
             <h2 className="mission2-title">{STEP3_TITLE}</h2>
-            <div className="mission2-body-block">
+            <div className="mission2-body-block mission2-body-tight">
               {STEP3_BODY.split('\n').map((line, i) => (
-                <p key={i}>{line || '\u00A0'}</p>
+                <p key={i} className={line.trim() === '' ? 'mission2-body-blank' : ''}>{line || '\u00A0'}</p>
               ))}
             </div>
             <div className="mission2-flag-format">
@@ -173,6 +193,7 @@ function Mission2() {
               <span className="mission2-link-label">Open FDA EUA Revocation Notice</span>
               <span className="mission2-link-icon" aria-hidden="true">↗</span>
             </a>
+            <div className="mission2-answer-wrap">
             <form onSubmit={handleSubmitFinding} className="mission2-form">
               <input
                 type="text"
@@ -195,6 +216,12 @@ function Mission2() {
                 {submitError}
               </p>
             )}
+            </div>
+            <nav className="mission2-nav" aria-label="Step navigation">
+              <button type="button" className="mission2-nav-btn mission2-nav-prev" onClick={goBack} aria-label="Previous step">
+                ←
+              </button>
+            </nav>
           </div>
         )}
 

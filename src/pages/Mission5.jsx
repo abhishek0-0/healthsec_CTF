@@ -1,56 +1,46 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission3Bg from '../assets/m2bg.png'
-import m3pImg from '../assets/m3p.png'
+import mission5Bg from '../assets/m2bg.png'
+import m5pImg from '../assets/m5p.png'
 
 const TOTAL_STEPS = 3
-const CORRECT_FLAG = 'emotional manipulation'
+const CORRECT_FLAG = '10'
 
-const BOX1_TITLE = 'Mission 3: Anecdote Overload'
-const BOX1_BODY = `The Distortion Network is adapting.
+const BOX1_TITLE = 'Mission 5: The Bot Choir'
+const BOX1_BODY = `"There's a new fear spreading. This time, it's wearing a hospital logo."
 
-They are no longer hiding behind studies.
-They are hiding behind stories.
+GHIA intercepted a series of posts from a verified medical center.
+The messages are calm.
+The images are credible.
+Nothing is technically false.
+Yet panic is growing.
+Five posts.
+Different words.
+Different images.
+This is not mass panic.
+This is choreography.
+The Distortion Network is running a bot choir.`
 
-A new narrative is surging across social platforms.
-This one spreads faster than facts because it doesn't argue.`
-
-const BOX2_INTRO = (name) =>
-  `GHIA has flagged a rapidly growing Facebook group claiming to be a "support community."
-
-At first glance, it looks harmless.
-No links. No charts. No studies.
-Just stories.
-
-As Agent ${name || 'Agent'}, you're told:
-
-"No single post is provably false.
-But together, they're shaping belief."
-
-Analyze the post structure to identify the manipulation technique.
-That technique is your flag.`
+const BOX2_TITLE = 'Find the Rhythm'
+const BOX2_BODY = `The claims change. The timing does not.
+This isn't human behavior.
+It's an amplification node hiding behind authority.
+Trust can be faked.
+Fear can be implied.
+But time never lies.
+Find the rhythm. Expose the signal.
+Analyze the posting pattern of the hospital feed shown.
+Submit the posting interval as the flag.
+(number only, two digits)`
 
 const BOX3_MESSAGE = (name) =>
-  `Good job, Agent ${name || 'Agent'}.
+  `Good work, Agent ${name || 'Agent'}.
+You learned that credibility can be manufactured without false statements. Even accurate messages can be weaponized when released in coordinated, artificial patterns.
+By analyzing timing instead of content, you exposed automated amplification hiding behind institutional authority.
+When facts appear harmless but fear grows, the signal is often in the rhythm — not the words.`
 
-You recognized how repeated personal stories can persuade without evidence.
-You learned that misinformation doesn't always rely on false facts.
-
-Sometimes it spreads by volume, emotion, and repetition,
-shaping belief through anecdote rather than proof.
-
-When individual claims can't be disproven,
-patterns of persuasion reveal the intent.`
-
-function normalizeFlag(s) {
-  return s
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, ' ')
-}
-
-function Mission3() {
+function Mission5() {
   const navigate = useNavigate()
   const [agentName, setAgentName] = useState('Agent')
   const [step, setStep] = useState(1)
@@ -75,29 +65,35 @@ function Mission3() {
     if (step > 1) setStep((s) => s - 1)
   }
 
+  const handleFlagChange = (e) => {
+    const v = e.target.value.replace(/\D/g, '').slice(0, 2)
+    setFlagInput(v)
+    setSubmitError('')
+  }
+
   const handleSubmitFlag = (e) => {
     e.preventDefault()
     setSubmitError('')
-    const normalized = normalizeFlag(flagInput)
-    if (!normalized) {
-      setSubmitError('Enter the manipulation technique (2 words).')
+    const trimmed = flagInput.trim()
+    if (!trimmed) {
+      setSubmitError('Enter the posting interval (number only, two digits).')
       return
     }
-    if (normalized === CORRECT_FLAG) {
+    if (trimmed === CORRECT_FLAG) {
       setIsSuccess(true)
     } else {
-      setSubmitError('Incorrect. Re-analyze the post structure.')
+      setSubmitError('Not quite. Look at the timestamps. What is the consistent interval?')
     }
   }
 
-  const handleProceedToNextBriefing = () => navigate('/mission/4')
+  const handleProceedToNextBriefing = () => navigate('/mission/6')
 
   return (
     <div className="mission2-container mission3">
       <div className="mission2-bg">
         <div
           className="mission2-bg-image"
-          style={{ backgroundImage: `url(${mission3Bg})` }}
+          style={{ backgroundImage: `url(${mission5Bg})` }}
           aria-hidden="true"
         />
         <div className="mission2-gradient" />
@@ -127,7 +123,7 @@ function Mission3() {
       )}
 
       <div className={`mission2-card ${step === 2 && !isSuccess ? 'mission3-card-wide' : ''}`}>
-        {/* BOX 1 — Briefing */}
+        {/* Step 1 — Briefing */}
         {!isSuccess && step === 1 && (
           <div className="mission2-step mission2-step-enter">
             <h2 className="mission2-title">{BOX1_TITLE}</h2>
@@ -154,12 +150,12 @@ function Mission3() {
           </div>
         )}
 
-        {/* BOX 2 — Analysis Zone */}
+        {/* Step 2 — Evidence + Flag */}
         {!isSuccess && step === 2 && (
           <div className="mission2-step mission2-step-enter">
-            <h2 className="mission2-title">Analysis Zone</h2>
+            <h2 className="mission2-title">{BOX2_TITLE}</h2>
             <div className="mission2-body-block mission2-body-tight">
-              {BOX2_INTRO(agentName).split('\n').map((line, i) => (
+              {BOX2_BODY.split('\n').map((line, i) => (
                 <p key={i} className={line.trim() === '' ? 'mission2-body-blank' : ''}>
                   {line || '\u00A0'}
                 </p>
@@ -167,23 +163,27 @@ function Mission3() {
             </div>
             <div className="mission2-exhibit">
               <div className="mission2-exhibit-frame mission2-exhibit-frame-glow">
-                <img src={m3pImg} alt="Flagged social media group posts" className="mission2-exhibit-img mission3-exhibit-img" />
+                <img
+                  src={m5pImg}
+                  alt="Hospital feed posts with timestamps"
+                  className="mission2-exhibit-img mission3-exhibit-img"
+                />
               </div>
             </div>
             <form onSubmit={handleSubmitFlag} className="mission2-form">
               <input
                 type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={flagInput}
-                onChange={(e) => {
-                  setFlagInput(e.target.value)
-                  setSubmitError('')
-                }}
-                placeholder="Enter manipulation technique (2 words)"
-                className="mission2-input mission3-flag-input"
+                onChange={handleFlagChange}
+                placeholder="Posting interval (2 digits)"
+                className="mission2-input mission3-flag-input mission5-flag-input"
                 autoComplete="off"
+                maxLength={2}
               />
               <button type="submit" className="mission2-btn mission2-btn-primary">
-                Submit
+                Submit Flag
               </button>
             </form>
             {submitError && (
@@ -204,12 +204,12 @@ function Mission3() {
           </div>
         )}
 
-        {/* BOX 3 — Success / Reward */}
+        {/* Step 3 — Completion */}
         {isSuccess && (
           <div className="mission2-step mission2-step-enter mission2-success">
-            <h2 className="mission2-title">Mission 3 Complete</h2>
+            <h2 className="mission2-title">Mission 5 Complete</h2>
             <div className="mission2-rewards">
-              <p>✔ Mission 3 Complete</p>
+              <p>✔ Mission 5 Complete</p>
               <p>✔ Network Access Expanded</p>
             </div>
             <p className="mission2-congrats">{BOX3_MESSAGE(agentName)}</p>
@@ -227,4 +227,4 @@ function Mission3() {
   )
 }
 
-export default Mission3
+export default Mission5

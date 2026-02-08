@@ -1,47 +1,67 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission3Bg from '../assets/m2bg.png'
-import m3pImg from '../assets/m3p.png'
+import mission4Bg from '../assets/m2bg.png'
 
 const TOTAL_STEPS = 3
-const CORRECT_FLAG = 'emotional manipulation'
+const CORRECT_FLAG = 'circular reporting'
 
-const BOX1_TITLE = 'Mission 3: Anecdote Overload'
-const BOX1_BODY = `The Distortion Network is adapting.
+const BOX1_TITLE = 'Mission 4: Manufactured Authority'
+const BOX1_BODY = (name) =>
+  `Agent ${name || 'Agent'},
 
-They are no longer hiding behind studies.
-They are hiding behind stories.
+A sentence attributed to a medical expert is everywhere.
 
-A new narrative is surging across social platforms.
-This one spreads faster than facts because it doesn't argue.`
+News articles quote it.
+Blogs repeat it.
+Social posts screenshot it.
 
-const BOX2_INTRO = (name) =>
-  `GHIA has flagged a rapidly growing Facebook group claiming to be a "support community."
+The quote sounds authoritative.
+It is framed as settled medical truth.
 
-At first glance, it looks harmless.
-No links. No charts. No studies.
-Just stories.
+And yet…
 
-As Agent ${name || 'Agent'}, you're told:
+No one can find the original interview.`
 
-"No single post is provably false.
-But together, they're shaping belief."
+const BOX2_INTRO = `GHIA analysts traced a widely shared medical claim to a single quote.
 
-Analyze the post structure to identify the manipulation technique.
-That technique is your flag.`
+The wording is identical across platforms.
+Each article claims credibility by citing another article.
 
-const BOX3_MESSAGE = (name) =>
-  `Good job, Agent ${name || 'Agent'}.
+None provide:
+• a video
+• a transcript
+• a journal reference
+• a primary interview
 
-You recognized how repeated personal stories can persuade without evidence.
-You learned that misinformation doesn't always rely on false facts.
+The authority exists only through repetition.
 
-Sometimes it spreads by volume, emotion, and repetition,
-shaping belief through anecdote rather than proof.
+You are not being asked whether the quote is true.
+You are being asked how credibility is being manufactured.`
 
-When individual claims can't be disproven,
-patterns of persuasion reveal the intent.`
+const CITATION_LOOP = `Article A:
+"According to a CDC expert, the flu shot was 'disastrous' this year…"
+Source cited: Article B
+
+Article B:
+"Medical experts warn the public based on recent CDC commentary…"
+Source cited: Article C
+
+Article C:
+"As reported earlier, a CDC doctor confirmed concerns…"
+Source cited: Article D
+
+Article D:
+"This statement has been echoed across multiple health outlets…"
+Source cited: Article A`
+
+const BOX3_MESSAGE = `You learned that authority can be manufactured through repetition.
+
+When sources cite each other instead of a primary origin,
+credibility circulates without evidence.
+
+Expertise does not prevent misinformation.
+It can amplify it.`
 
 function normalizeFlag(s) {
   return s
@@ -50,7 +70,7 @@ function normalizeFlag(s) {
     .replace(/\s+/g, ' ')
 }
 
-function Mission3() {
+function Mission4() {
   const navigate = useNavigate()
   const [agentName, setAgentName] = useState('Agent')
   const [step, setStep] = useState(1)
@@ -80,24 +100,24 @@ function Mission3() {
     setSubmitError('')
     const normalized = normalizeFlag(flagInput)
     if (!normalized) {
-      setSubmitError('Enter the manipulation technique (2 words).')
+      setSubmitError('Enter the misinformation structure.')
       return
     }
     if (normalized === CORRECT_FLAG) {
       setIsSuccess(true)
     } else {
-      setSubmitError('Incorrect. Re-analyze the post structure.')
+      setSubmitError('Incorrect. Re-check how credibility is being manufactured.')
     }
   }
 
-  const handleProceedToNextBriefing = () => navigate('/mission/4')
+  const handleProceedToNextBriefing = () => navigate('/mission/5')
 
   return (
     <div className="mission2-container mission3">
       <div className="mission2-bg">
         <div
           className="mission2-bg-image"
-          style={{ backgroundImage: `url(${mission3Bg})` }}
+          style={{ backgroundImage: `url(${mission4Bg})` }}
           aria-hidden="true"
         />
         <div className="mission2-gradient" />
@@ -132,7 +152,7 @@ function Mission3() {
           <div className="mission2-step mission2-step-enter">
             <h2 className="mission2-title">{BOX1_TITLE}</h2>
             <div className="mission2-body-block mission2-body-tight">
-              {BOX1_BODY.split('\n').map((line, i) => (
+              {BOX1_BODY(agentName).split('\n').map((line, i) => (
                 <p key={i} className={line.trim() === '' ? 'mission2-body-blank' : ''}>
                   {line || '\u00A0'}
                 </p>
@@ -154,21 +174,19 @@ function Mission3() {
           </div>
         )}
 
-        {/* BOX 2 — Analysis Zone */}
+        {/* BOX 2 — Investigation */}
         {!isSuccess && step === 2 && (
           <div className="mission2-step mission2-step-enter">
-            <h2 className="mission2-title">Analysis Zone</h2>
+            <h2 className="mission2-title">Investigation</h2>
             <div className="mission2-body-block mission2-body-tight">
-              {BOX2_INTRO(agentName).split('\n').map((line, i) => (
+              {BOX2_INTRO.split('\n').map((line, i) => (
                 <p key={i} className={line.trim() === '' ? 'mission2-body-blank' : ''}>
                   {line || '\u00A0'}
                 </p>
               ))}
             </div>
-            <div className="mission2-exhibit">
-              <div className="mission2-exhibit-frame mission2-exhibit-frame-glow">
-                <img src={m3pImg} alt="Flagged social media group posts" className="mission2-exhibit-img mission3-exhibit-img" />
-              </div>
+            <div className="mission4-citation-block">
+              <pre className="mission4-citation-pre">{CITATION_LOOP}</pre>
             </div>
             <form onSubmit={handleSubmitFlag} className="mission2-form">
               <input
@@ -178,7 +196,7 @@ function Mission3() {
                   setFlagInput(e.target.value)
                   setSubmitError('')
                 }}
-                placeholder="Enter manipulation technique (2 words)"
+                placeholder="Enter misinformation structure"
                 className="mission2-input mission3-flag-input"
                 autoComplete="off"
               />
@@ -204,15 +222,15 @@ function Mission3() {
           </div>
         )}
 
-        {/* BOX 3 — Success / Reward */}
+        {/* BOX 3 — Completion */}
         {isSuccess && (
           <div className="mission2-step mission2-step-enter mission2-success">
-            <h2 className="mission2-title">Mission 3 Complete</h2>
+            <h2 className="mission2-title">Mission 4 Complete</h2>
             <div className="mission2-rewards">
-              <p>✔ Mission 3 Complete</p>
+              <p>✔ Mission 4 Complete</p>
               <p>✔ Network Access Expanded</p>
             </div>
-            <p className="mission2-congrats">{BOX3_MESSAGE(agentName)}</p>
+            <p className="mission2-congrats">{BOX3_MESSAGE}</p>
             <button
               type="button"
               className="mission2-btn mission2-btn-deploy"
@@ -227,4 +245,4 @@ function Mission3() {
   )
 }
 
-export default Mission3
+export default Mission4
