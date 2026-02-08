@@ -151,15 +151,15 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 560px;
-  min-height: 300px;
+  max-width: 720px;
+  min-height: 380px;
   background: rgba(18, 18, 28, 0.55);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(0, 230, 230, 0.18);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  padding: 2rem 1.75rem 5rem;
+  padding: 2.5rem 2rem 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -173,12 +173,12 @@
 }
 
 .mission1-mission-title {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: rgba(0, 230, 230, 0.9);
+  color: #00f5f5;
   letter-spacing: 0.08em;
   margin-bottom: 1.25rem;
-  text-shadow: 0 0 16px rgba(0, 230, 230, 0.25);
+  text-shadow: 0 0 20px rgba(0, 245, 245, 0.4), 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 /* Step enter - limit height so nav stays visible */
@@ -205,19 +205,20 @@
 
 /* Typing / reveal */
 .mission1-typing {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: rgba(0, 255, 255, 0.95);
+  color: #00ffff;
   letter-spacing: 0.12em;
   margin-bottom: 0.5rem;
+  text-shadow: 0 0 16px rgba(0, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .mission1-body {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #e0e0e0;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: #f2f2f2;
   margin-bottom: 0.9rem;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .mission1-body:last-of-type {
@@ -266,6 +267,51 @@
   margin-bottom: 0.75rem;
 }
 
+.mission1-claim-placeholder-full {
+  min-height: auto;
+  align-items: flex-start;
+  text-align: left;
+  padding: 1.5rem 1.5rem 1.25rem;
+}
+
+.mission1-claim-placeholder-full .mission1-claim-overlay {
+  text-align: left;
+}
+
+.mission1-claim-placeholder-full .mission1-caption {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.mission1-bullets-inline {
+  margin: 0.5rem 0 0.75rem;
+  margin-left: 0;
+  padding-left: 0;
+  max-width: none;
+}
+
+.mission1-bullets-inline li {
+  padding-left: 0;
+}
+
+.mission1-bullets-inline li::before {
+  display: none;
+}
+
+/* Readable claim box - all text same size */
+.mission1-claim-box-readable .mission1-claim-box-line {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #f2f2f2;
+  margin: 0 0 0.65rem;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.mission1-claim-box-readable .mission1-claim-box-line:last-child {
+  margin-bottom: 0;
+}
+
 .mission1-claim-icon {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
@@ -275,16 +321,17 @@
 .mission1-claim-overlay {
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  color: #fff;
   text-align: center;
   margin: 0;
-  text-shadow: 0 0 12px rgba(0, 230, 230, 0.3);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .mission1-caption {
-  font-size: 0.9rem;
-  color: rgba(200, 220, 255, 0.85);
+  font-size: 0.95rem;
+  color: #e8ecf8;
   margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 /* Bullets */
@@ -301,11 +348,12 @@
 
 .mission1-bullets li,
 .mission1-numbered li {
-  font-size: 1rem;
-  color: #d8d8d8;
+  font-size: 1.05rem;
+  color: #eee;
   padding: 0.35rem 0;
   padding-left: 1.25rem;
   position: relative;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .mission1-bullets li::before {
@@ -368,119 +416,73 @@
   margin-top: 1rem;
 }
 
-/* Step 5 - Follow the Evidence (link is focal point, hint box below) */
+/* Step 5 - Follow the Evidence (single box) */
 .mission1-step5-wrap {
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
 }
 
-.mission1-step5-hint {
-  margin-bottom: 0.9rem;
-  text-align: left;
-}
-
-.mission1-step5-hint-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: rgba(0, 230, 230, 0.95);
-  margin-bottom: 0.35rem;
-  letter-spacing: 0.03em;
-}
-
-.mission1-step5-hint-line {
-  font-size: 0.9rem;
-  color: #d0d0d0;
-  line-height: 1.45;
-  margin: 0.15rem 0;
-}
-
-/* PRIMARY INTELLIGENCE SOURCE – always visible, above hint box */
-.mission1-step5-primary {
-  margin: 0.75rem 0 1rem;
-  padding: 1.35rem 1.5rem;
-  text-align: center;
-  background: rgba(0, 40, 50, 0.55);
-  border: 1px solid rgba(0, 230, 230, 0.4);
+.mission1-step5-single-box {
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: rgba(0, 40, 50, 0.5);
+  border: 1px solid rgba(0, 230, 230, 0.35);
   border-radius: 12px;
-  animation: mission1Step5Pulse 2.8s ease-in-out infinite;
-  opacity: 1;
-  min-height: 100px;
-}
-
-@keyframes mission1Step5Pulse {
-  0%, 100% {
-    box-shadow: 0 0 24px rgba(0, 230, 230, 0.25), 0 0 48px rgba(0, 200, 255, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 36px rgba(0, 230, 230, 0.45), 0 0 64px rgba(0, 200, 255, 0.2);
-  }
-}
-
-.mission1-step5-primary-label {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba(0, 230, 230, 0.95);
-  margin-bottom: 0.85rem;
-}
-
-.mission1-step5-primary-btn {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 1.1rem 1.75rem;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #fff;
-  background: linear-gradient(135deg, rgba(0, 190, 210, 0.95) 0%, rgba(0, 150, 170, 0.98) 100%);
-  border: 2px solid rgba(0, 230, 230, 0.6);
-  border-radius: 10px;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.mission1-step5-primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 230, 230, 0.5);
-  border-color: rgba(0, 255, 255, 0.9);
-}
-
-.mission1-step5-primary-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.mission1-step5-primary-icon {
-  font-size: 1.35rem;
-}
-
-.mission1-step5-primary-sub {
-  font-size: 0.8rem;
-  font-weight: 600;
-  opacity: 0.95;
-  letter-spacing: 0.02em;
-}
-
-/* Hint box – below the link */
-.mission1-step5-muted {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: rgba(180, 200, 210, 0.85);
-  padding: 0.85rem 1rem;
-  margin: 0 0 1.25rem;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  border-left: 3px solid rgba(0, 230, 230, 0.35);
+  margin-bottom: 1.5rem;
   text-align: left;
+}
+
+.mission1-step5-box-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00f5f5;
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.mission1-step5-box-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #e8e8e8;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.mission1-step5-box-link {
+  color: #00e5e5;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.mission1-step5-box-link:hover {
+  color: #00ffff;
 }
 
 .mission1-step5-ready {
   margin-top: 0.5rem;
   letter-spacing: 0.05em;
+}
+
+/* FDA link box on step 5 (submit flag page) */
+.mission1-fda-box {
+  display: inline-block;
+  padding: 0.85rem 1.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(0, 190, 210, 0.95) 0%, rgba(0, 150, 170, 0.98) 100%);
+  border: 2px solid rgba(0, 230, 230, 0.6);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mission1-fda-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 230, 230, 0.45);
 }
 
 /* FDA link (legacy, kept for other uses if any) */
@@ -529,10 +531,11 @@
 .mission1-verifying-text {
   font-size: 1.1rem;
   font-weight: 700;
-  color: rgba(0, 230, 230, 0.95);
+  color: #00f5f5;
   letter-spacing: 0.15em;
   margin-bottom: 1rem;
   animation: mission1Pulse 1s ease-in-out infinite;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 @keyframes mission1Pulse {
@@ -649,7 +652,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 560px;
+  max-width: 720px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -681,9 +684,10 @@
 }
 
 .mission1-step-label {
-  font-size: 0.85rem;
-  color: rgba(200, 220, 255, 0.6);
+  font-size: 0.9rem;
+  color: #c8d4f0;
   letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 768px) {
