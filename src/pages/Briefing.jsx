@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import '../styles/briefing.css'
 import briefingBg from '../assets/briefing-bg.png'
 
@@ -37,7 +37,6 @@ function Briefing() {
   }, [goNext, goBack])
 
   const handleBeginBriefing = () => setStep(2)
-  const handleDeploy = () => navigate('/mission/1')
 
   const canGoNext = step < TOTAL_STEPS
   const canGoBack = step > 1
@@ -155,9 +154,9 @@ function Briefing() {
         {step === 8 && (
           <div className="briefing-step briefing-step-enter">
             <p className="briefing-body briefing-reveal briefing-final-q">Are you ready for your first mission?</p>
-            <button type="button" className="briefing-btn briefing-btn-deploy" onClick={handleDeploy}>
+            <Link to="/mission/1" className="briefing-btn briefing-btn-deploy">
               YES — DEPLOY ME
-            </button>
+            </Link>
           </div>
         )}
 

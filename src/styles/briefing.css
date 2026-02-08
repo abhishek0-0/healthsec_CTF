@@ -292,6 +292,12 @@
 .briefing-btn {
   padding: 0.9rem 2rem;
   font-size: 1rem;
+}
+
+a.briefing-btn {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
   font-weight: 600;
   border: none;
   border-radius: 8px;
