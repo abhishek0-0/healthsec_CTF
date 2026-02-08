@@ -5,7 +5,7 @@ import mission1Bg from '../assets/mission1-bg.png'
 import step4User123 from '../assets/mission1-step4-user123.png'
 import step4Collage from '../assets/mission1-step4-collage.png'
 
-const TOTAL_STEPS = 8
+const TOTAL_STEPS = 6
 const FDA_LINK = 'https://www.fda.gov/media/167212/download'
 
 function Mission1() {
@@ -49,7 +49,7 @@ function Mission1() {
       } else {
         setVerificationStatus('incorrect')
       }
-      setStep(7)
+      setStep(5)
     }, 2200)
   }, [numericAnswer])
 
@@ -60,21 +60,21 @@ function Mission1() {
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === 'ArrowRight') {
-        if (step === 6 && verificationStatus === 'verifying') return
-        if (step === 6 && verificationStatus === 'incorrect') return
-        if (step === 7 && verificationStatus !== 'success') return
+        if (step === 4 && verificationStatus === 'verifying') return
+        if (step === 4 && verificationStatus === 'incorrect') return
+        if (step === 5 && verificationStatus !== 'success') return
         goNext()
       }
       if (e.key === 'ArrowLeft') {
-        if (step === 7 && verificationStatus === 'success') return
+        if (step === 5 && verificationStatus === 'success') return
         goBack()
       }
       if (e.key === 'Enter') {
-        if (step === 6 && verificationStatus !== 'verifying' && numericAnswer !== '') {
+        if (step === 4 && verificationStatus !== 'verifying' && numericAnswer !== '') {
           handleSubmitFinding()
-        } else if (step !== 6 && step < TOTAL_STEPS) {
+        } else if (step !== 4 && step < TOTAL_STEPS) {
           goNext()
-        } else if (step === 8) {
+        } else if (step === 6) {
           handleProceedToNextBriefing()
         }
       }
@@ -84,14 +84,14 @@ function Mission1() {
   }, [step, goNext, goBack, verificationStatus, numericAnswer, handleSubmitFinding, handleProceedToNextBriefing])
 
   useEffect(() => {
-    if (step === 6 && inputRef.current) inputRef.current.focus()
+    if (step === 4 && inputRef.current) inputRef.current.focus()
   }, [step])
 
   const canGoBack = step > 1
   const showNext =
     step < TOTAL_STEPS &&
-    step !== 6 &&
-    (step !== 7 || verificationStatus === 'success')
+    step !== 4 &&
+    (step !== 5 || verificationStatus === 'success')
 
   return (
     <div className="mission1-container">
@@ -128,7 +128,7 @@ function Mission1() {
         ))}
       </div>
 
-      <div className={`mission1-card ${step === 4 ? 'mission1-card-wide' : ''}`}>
+      <div className={`mission1-card ${step === 3 ? 'mission1-card-wide' : ''}`}>
         <h2 className="mission1-mission-title">Mission 1: The Magnet Lie</h2>
 
         {/* STEP 1 */}
@@ -157,32 +157,17 @@ function Mission1() {
           </div>
         )}
 
-        {/* STEP 3 - Viral claim / magnet visual */}
+        {/* STEP 3 - Viral claim / magnet visual + viral spread text */}
         {step === 3 && (
-          <div className="mission1-step mission1-step-enter">
-            <div className="mission1-claim-visual">
-              <div className="mission1-claim-placeholder">
-                <span className="mission1-claim-icon">🧲</span>
-                <p className="mission1-claim-overlay">A magnet sticks to the COVID-19 vaccine injection site.</p>
-              </div>
-              <p className="mission1-caption">Millions believe this proves vaccines contain microchips.</p>
-            </div>
-            <button type="button" className="mission1-btn mission1-btn-primary" onClick={goNext}>
-              Analyze Claim
-            </button>
-          </div>
-        )}
-
-        {/* STEP 4 - Stakes + two big stacked photos (scroll to see both) */}
-        {step === 4 && (
           <div className="mission1-step mission1-step-enter mission1-step4-wrap">
-            <ul className="mission1-bullets mission1-stagger mission1-step4-bullets">
-              <li className="mission1-reveal mission1-delay-1">Millions of views</li>
-              <li className="mission1-reveal mission1-delay-2">#MagnetChallenge trending</li>
-              <li className="mission1-reveal mission1-delay-3">Influencers amplifying the lie</li>
-            </ul>
-            <p className="mission1-body mission1-reveal mission1-delay-4">This is not random.</p>
-            <p className="mission1-body mission1-reveal mission1-delay-5">This is a test run.</p>
+            <div className="mission1-claim-visual">
+              <div className="mission1-claim-placeholder mission1-claim-placeholder-full mission1-claim-box-readable">
+                <p className="mission1-claim-box-line">🧲 A magnet sticks to the COVID-19 vaccine injection site.</p>
+                <p className="mission1-claim-box-line">Millions believe this proves vaccines contain microchips. Videos of prominent political figures and influencers propagated the narrative that vaccines contained tracking devices. #MagnetChallenge is trending across social media platforms.</p>
+                <p className="mission1-claim-box-line">This is not random.</p>
+                <p className="mission1-claim-box-line">This is a test run.</p>
+              </div>
+            </div>
             <div className="mission1-step4-photos">
               <img src={step4User123} alt="Social post: magnet challenge" className="mission1-step4-photo mission1-reveal mission1-delay-5" />
               <img src={step4Collage} alt="Social posts: magnet challenge collage" className="mission1-step4-photo mission1-reveal mission1-delay-5" />
@@ -193,42 +178,9 @@ function Mission1() {
           </div>
         )}
 
-        {/* STEP 5 - Follow the Evidence (intelligence hint, FDA as primary lead) */}
-        {step === 5 && (
+        {/* STEP 4 - Follow the evidence + submit flag */}
+        {step === 4 && (
           <div className="mission1-step mission1-step-enter mission1-step5-wrap">
-            <div className="mission1-step5-hint mission1-reveal">
-              <h3 className="mission1-step5-hint-title">🧠 Follow the Evidence</h3>
-              <p className="mission1-step5-hint-line">The claim hinges on ingredients.</p>
-              <p className="mission1-step5-hint-line">Official records reveal what is actually inside.</p>
-              <p className="mission1-step5-hint-line">Metals leave a paper trail. Lies do not.</p>
-            </div>
-            <div className="mission1-step5-primary">
-              <span className="mission1-step5-primary-label">🔦 PRIMARY INTELLIGENCE SOURCE</span>
-              <a
-                href={FDA_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mission1-step5-primary-btn"
-              >
-                <span className="mission1-step5-primary-row">
-                  <span className="mission1-step5-primary-icon">🔦</span>
-                  FDA Vaccine Ingredient List
-                </span>
-                <span className="mission1-step5-primary-sub">(opens in new tab)</span>
-              </a>
-            </div>
-            <div className="mission1-step5-muted mission1-reveal mission1-delay-2">
-              Cross-check each ingredient. Identify whether any are metals or magnetic materials. Count only what truly qualifies.
-            </div>
-            <button type="button" className="mission1-btn mission1-btn-primary mission1-step5-ready" onClick={goNext}>
-              I&apos;M READY TO VERIFY
-            </button>
-          </div>
-        )}
-
-        {/* STEP 6 - Evidence input or verifying */}
-        {step === 6 && (
-          <div className="mission1-step mission1-step-enter">
             {verificationStatus === 'verifying' ? (
               <div className="mission1-verifying">
                 <p className="mission1-verifying-text">VERIFYING…</p>
@@ -238,15 +190,29 @@ function Mission1() {
               </div>
             ) : (
               <>
-                <p className="mission1-body mission1-reveal">
-                  How many ingredients listed are metals or magnetic materials?
+                <div className="mission1-step5-single-box mission1-reveal">
+                  <h3 className="mission1-step5-box-title">Follow the evidence</h3>
+                  <p className="mission1-step5-box-text">
+                    Visit the official website of the FDA and look at the ingredient list for the Covid-19 vaccine to see if there are any metals present. Your flag is the number of metals present.{' '}
+                    <a
+                      href={FDA_LINK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mission1-step5-box-link"
+                    >
+                      Link to FDA website
+                    </a>
+                  </p>
+                </div>
+                <p className="mission1-body mission1-reveal mission1-delay-1" style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>
+                  How many ingredients in the FDA list are metals or magnetic? Submit your flag below.
                 </p>
                 <input
                   ref={inputRef}
                   type="number"
                   min="0"
                   max="999"
-                  className="mission1-input mission1-reveal mission1-delay-1"
+                  className="mission1-input mission1-reveal mission1-delay-2"
                   value={numericAnswer}
                   onChange={(e) => setNumericAnswer(e.target.value.replace(/\D/g, '').slice(0, 3))}
                   placeholder="0"
@@ -265,8 +231,8 @@ function Mission1() {
           </div>
         )}
 
-        {/* STEP 7 - Verification result */}
-        {step === 7 && (
+        {/* STEP 5 - Verification result */}
+        {step === 5 && (
           <div className="mission1-step mission1-step-enter">
             {verificationStatus === 'success' && (
               <>
@@ -288,7 +254,7 @@ function Mission1() {
                 <button
                   type="button"
                   className="mission1-btn mission1-btn-primary"
-                  onClick={() => { setVerificationStatus(null); setStep(6); }}
+                  onClick={() => { setVerificationStatus(null); setStep(4); }}
                 >
                   Try Again
                 </button>
@@ -297,12 +263,10 @@ function Mission1() {
           </div>
         )}
 
-        {/* STEP 8 - Complete */}
-        {step === 8 && (
+        {/* STEP 6 - Complete */}
+        {step === 6 && (
           <div className="mission1-step mission1-step-enter">
-            <p className="mission1-body mission1-reveal">Misinformation neutralized.</p>
-            <p className="mission1-body mission1-reveal mission1-delay-1">The distortion did not spread today.</p>
-            <div className="mission1-rewards mission1-reveal mission1-delay-2">
+            <div className="mission1-rewards mission1-reveal">
               <p>✔ Mission 1 Complete</p>
               <p>✔ Network Access Expanded</p>
             </div>
@@ -323,8 +287,8 @@ function Mission1() {
           <button
             type="button"
             className="mission1-nav-btn"
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); if (canGoBack && !(step === 7 && verificationStatus === 'success')) goBack(); }}
-            disabled={!canGoBack || (step === 7 && verificationStatus === 'success')}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); if (canGoBack && !(step === 6 && verificationStatus === 'success')) goBack(); }}
+            disabled={!canGoBack || (step === 5 && verificationStatus === 'success')}
             aria-label="Previous"
           >
             ←
