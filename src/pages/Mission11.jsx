@@ -1,56 +1,58 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission6Bg from '../assets/m2bg.png'
+import '../styles/mission11.css'
+import mission11Bg from '../assets/m2bg.png'
+import infographicImg from '../assets/images/image11.png'
 
 const TOTAL_STEPS = 3
-const CORRECT_FLAG = 'doi'
-const RESEARCH_SQUARE_URL = 'https://www.researchsquare.com/article/rs-100956/v1'
+const CORRECT_FLAG = 'STAY AWARE'
 
-const BOX1_TITLE = 'Mission 6: Follow the Signal Backward'
+const BOX1_TITLE = 'Mission 11: The Signal in the Design'
 const BOX1_BODY = (name) =>
-  `Agent ${name || 'Agent'}, you exposed coordination hiding behind authority.
+  `Agent ${name || 'Agent'},
 
-Now follow the signal backward.
+Throughout this operation, you've traced lies, authority, timing, sources, and intent.
 
-Every large misinformation wave starts somewhere.
-Before headlines. Before social media. Before public panic.
-GHIA has traced this narrative to its point of origin:
-a preprint that was shared widely before it was challenged and withdrawn.
+Now the Distortion Network has shifted again.
+They are no longer hiding messages in words.
+They are hiding them in design.
 
-You are not here to judge the science.
-You are here to understand how claims persist even when credibility collapses.`
+GHIA analysts have intercepted a polished health infographic circulating inside a semi-private "medical freedom" community.
 
-const BOX2_TITLE = 'Find the Anchor'
-const BOX2_BODY = `Research Square – Elgazzar et al. ivermectin study.
+At first glance, it looks harmless.
+Calm colors. Friendly icons. Reassuring language.
+Nothing in the text is false.
+Nothing violates policy.
+Nothing looks encoded.
 
-This is the original preprint posting where the study first appeared —
-before journal publication and later withdrawal.
+And yet, members of the group are receiving a message.
+This isn't persuasion.
+It's signaling.`
 
-Visit the site. Skim the abstract. Don't read in detail —
-look at the whole page as the primary source from which media creates news
-and social media spreads awareness.
+const BOX2_TITLE = 'Decode the Hidden Message'
+const BOX2_BODY = `GHIA intercepted a health infographic shared inside a closed community.
 
-This study was amplified, disputed, and withdrawn.
-Titles changed. Claims collapsed.
-One identifier remained constant across every version.
+Nothing in the text is false. Nothing looks encoded.
+But the design itself is being used as a signal.
 
-Find it.
-
-Journal articles can be withdrawn.
-Headlines can be rewritten.
-But citations still point somewhere.
-Locate the anchor that every citation must reference.
-
-The flag is something that doesn't change.`
+Analyze the visual patterns in the image.
+Decode the hidden message embedded in the decorative elements.
+Submit the decoded message in ALL CAPS.`
 
 const BOX3_MESSAGE = (name) =>
-  `Good work, Agent ${name || 'Agent'}.
+  `You did it, Agent ${name || 'Agent'}.
 
-You learned that claims and headlines can change, but the original source leaves a fixed trail.
-Finding identifiers like the DOI — which never change — makes them key to trace where misinformation truly began.`
+Throughout this operation, you've traced lies, authority, timing, sources, and intent.
+You learned to verify claims at their source — not headlines.
+You exposed manufactured credibility, choreographed panic, and withdrawn studies.
+You decoded redactions, intercepted transmissions, and traced disclaimers.
+And now you've learned that influence can hide in design itself.
 
-function Mission6() {
+The Distortion Network adapts. So do we.
+You are ready.`
+
+function Mission11() {
   const navigate = useNavigate()
   const [agentName, setAgentName] = useState('Agent')
   const [step, setStep] = useState(1)
@@ -78,26 +80,26 @@ function Mission6() {
   const handleSubmitFlag = (e) => {
     e.preventDefault()
     setSubmitError('')
-    const normalized = flagInput.trim().toLowerCase()
-    if (!normalized) {
-      setSubmitError('Enter the unchanging identifier.')
+    const trimmed = flagInput.trim()
+    if (!trimmed) {
+      setSubmitError('Enter the decoded message in ALL CAPS.')
       return
     }
-    if (normalized === CORRECT_FLAG) {
+    if (trimmed === CORRECT_FLAG) {
       setIsSuccess(true)
     } else {
-      setSubmitError('Not yet. What identifier survives withdrawal, retraction, and republication?')
+      setSubmitError('Look closer at the decorative elements. What pattern forms?')
     }
   }
 
-  const handleProceedToNextBriefing = () => navigate('/mission/7')
+  const handleReturnToBriefing = () => navigate('/briefing')
 
   return (
-    <div className="mission2-container mission3">
+    <div className="mission2-container mission3 mission11-container">
       <div className="mission2-bg">
         <div
           className="mission2-bg-image"
-          style={{ backgroundImage: `url(${mission6Bg})` }}
+          style={{ backgroundImage: `url(${mission11Bg})` }}
           aria-hidden="true"
         />
         <div className="mission2-gradient" />
@@ -126,7 +128,7 @@ function Mission6() {
         </div>
       )}
 
-      <div className={`mission2-card ${step === 2 && !isSuccess ? 'mission3-card-wide' : ''}`}>
+      <div className={`mission2-card mission11-card ${step === 2 && !isSuccess ? 'mission3-card-wide' : ''} ${isSuccess ? 'mission11-success-card' : ''}`}>
         {!isSuccess && step === 1 && (
           <div className="mission2-step mission2-step-enter">
             <h2 className="mission2-title">{BOX1_TITLE}</h2>
@@ -163,15 +165,16 @@ function Mission6() {
                 </p>
               ))}
             </div>
-            <a
-              href={RESEARCH_SQUARE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mission2-link-card"
-            >
-              <span className="mission2-link-label">📄 Open Research Square Preprint</span>
-              <span className="mission2-link-icon" aria-hidden="true">↗</span>
-            </a>
+            <div className="mission2-exhibit">
+              <div className="mission2-exhibit-frame mission2-exhibit-frame-glow">
+                <img
+                  src={infographicImg}
+                  alt="Intercepted health infographic — analyze visual patterns"
+                  className="mission2-exhibit-img mission3-exhibit-img mission11-infographic"
+                />
+              </div>
+              <span className="mission2-exhibit-caption">INTERCEPTED INFOGRAPHIC</span>
+            </div>
             <form onSubmit={handleSubmitFlag} className="mission2-form">
               <input
                 type="text"
@@ -180,7 +183,7 @@ function Mission6() {
                   setFlagInput(e.target.value)
                   setSubmitError('')
                 }}
-                placeholder="The unchanging identifier (acronym)"
+                placeholder="Decoded message (ALL CAPS)"
                 className="mission2-input mission3-flag-input"
                 autoComplete="off"
               />
@@ -207,19 +210,23 @@ function Mission6() {
         )}
 
         {isSuccess && (
-          <div className="mission2-step mission2-step-enter mission2-success">
-            <h2 className="mission2-title">Mission 6 Complete</h2>
-            <div className="mission2-rewards">
-              <p>✔ Mission 6 Complete</p>
-              <p>✔ Network Access Expanded</p>
+          <div className="mission2-step mission2-step-enter mission2-success mission11-success">
+            <div className="mission11-badge">OPERATION COMPLETE</div>
+            <h2 className="mission11-congrats-title">Congratulations, Agent {agentName}</h2>
+            <div className="mission11-rewards-grid">
+              <span className="mission11-reward">✔ 11 Missions Cleared</span>
+              <span className="mission11-reward">✔ Lies Traced</span>
+              <span className="mission11-reward">✔ Authority Exposed</span>
+              <span className="mission11-reward">✔ Signals Decoded</span>
             </div>
-            <p className="mission2-congrats">{BOX3_MESSAGE(agentName)}</p>
+            <p className="mission11-final-message">{BOX3_MESSAGE(agentName)}</p>
+            <div className="mission11-tagline">The Distortion Network adapts. So do we.</div>
             <button
               type="button"
-              className="mission2-btn mission2-btn-deploy"
-              onClick={handleProceedToNextBriefing}
+              className="mission2-btn mission11-deploy-btn"
+              onClick={handleReturnToBriefing}
             >
-              Proceed to Next Briefing
+              Return to Briefing
             </button>
           </div>
         )}
@@ -228,4 +235,4 @@ function Mission6() {
   )
 }
 
-export default Mission6
+export default Mission11

@@ -1,56 +1,56 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission6Bg from '../assets/m2bg.png'
+import mission10Bg from '../assets/m2bg.png'
 
 const TOTAL_STEPS = 3
-const CORRECT_FLAG = 'doi'
-const RESEARCH_SQUARE_URL = 'https://www.researchsquare.com/article/rs-100956/v1'
+const CORRECT_FLAG = 'vsd,cisa'
+const OPENVAERS_URL = 'https://openvaers.com/covid-data'
 
-const BOX1_TITLE = 'Mission 6: Follow the Signal Backward'
+const BOX1_TITLE = 'Mission 10: Real Data, Misleading Impact'
 const BOX1_BODY = (name) =>
-  `Agent ${name || 'Agent'}, you exposed coordination hiding behind authority.
+  `Agent ${name || 'Agent'},
 
-Now follow the signal backward.
+The Distortion Network did not spread false information.
+They reused a real public reporting system.
 
-Every large misinformation wave starts somewhere.
-Before headlines. Before social media. Before public panic.
-GHIA has traced this narrative to its point of origin:
-a preprint that was shared widely before it was challenged and withdrawn.
+They did not make medical claims.
+They did not tell people what to believe.
 
-You are not here to judge the science.
-You are here to understand how claims persist even when credibility collapses.`
+Yet belief shifted.
 
-const BOX2_TITLE = 'Find the Anchor'
-const BOX2_BODY = `Research Square – Elgazzar et al. ivermectin study.
+A single website began circulating widely across platforms.
+Emergency departments later reported hesitancy in patient choice regarding the Covid vaccine.
 
-This is the original preprint posting where the study first appeared —
-before journal publication and later withdrawal.
+GHIA needs you to determine why.`
 
-Visit the site. Skim the abstract. Don't read in detail —
-look at the whole page as the primary source from which media creates news
-and social media spreads awareness.
+const BOX2_TITLE = 'Trace the Disclaimer'
+const BOX2_BODY = `The link to the website exactly as the public sees it:
 
-This study was amplified, disputed, and withdrawn.
-Titles changed. Claims collapsed.
-One identifier remained constant across every version.
+While reviewing the page:
+• Find the disclaimer
+• Read the Key considerations and limitations of VAERS data
+• Pay attention to who is assigned responsibility
 
-Find it.
+According to the disclaimer, where are further studies conducted if a safety signal is found in VAERS?
 
-Journal articles can be withdrawn.
-Headlines can be rewritten.
-But citations still point somewhere.
-Locate the anchor that every citation must reference.
-
-The flag is something that doesn't change.`
+That is your flag.
+Answer the two options in abbreviated form separated by a comma, no spaces.
+(e.g. ABC,DEF)`
 
 const BOX3_MESSAGE = (name) =>
   `Good work, Agent ${name || 'Agent'}.
 
-You learned that claims and headlines can change, but the original source leaves a fixed trail.
-Finding identifiers like the DOI — which never change — makes them key to trace where misinformation truly began.`
+You learned that information does not have to be false to be misleading.
+The website used real data and correct disclaimers, but left the meaning up to the reader.
+This allowed people to draw strong conclusions without clear guidance or accountability.
+Influence stayed, even though responsibility was passed on.`
 
-function Mission6() {
+function normalizeFlag(s) {
+  return s.trim().toLowerCase().replace(/\s+/g, '')
+}
+
+function Mission10() {
   const navigate = useNavigate()
   const [agentName, setAgentName] = useState('Agent')
   const [step, setStep] = useState(1)
@@ -78,26 +78,26 @@ function Mission6() {
   const handleSubmitFlag = (e) => {
     e.preventDefault()
     setSubmitError('')
-    const normalized = flagInput.trim().toLowerCase()
+    const normalized = normalizeFlag(flagInput)
     if (!normalized) {
-      setSubmitError('Enter the unchanging identifier.')
+      setSubmitError('Enter the two options in abbreviated form, comma-separated, no spaces.')
       return
     }
     if (normalized === CORRECT_FLAG) {
       setIsSuccess(true)
     } else {
-      setSubmitError('Not yet. What identifier survives withdrawal, retraction, and republication?')
+      setSubmitError('Incorrect. Check the VAERS disclaimer — where do further studies go?')
     }
   }
 
-  const handleProceedToNextBriefing = () => navigate('/mission/7')
+  const handleProceedToNextBriefing = () => navigate('/mission/11')
 
   return (
     <div className="mission2-container mission3">
       <div className="mission2-bg">
         <div
           className="mission2-bg-image"
-          style={{ backgroundImage: `url(${mission6Bg})` }}
+          style={{ backgroundImage: `url(${mission10Bg})` }}
           aria-hidden="true"
         />
         <div className="mission2-gradient" />
@@ -164,12 +164,12 @@ function Mission6() {
               ))}
             </div>
             <a
-              href={RESEARCH_SQUARE_URL}
+              href={OPENVAERS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mission2-link-card"
             >
-              <span className="mission2-link-label">📄 Open Research Square Preprint</span>
+              <span className="mission2-link-label">📄 Open VAERS Covid Data</span>
               <span className="mission2-link-icon" aria-hidden="true">↗</span>
             </a>
             <form onSubmit={handleSubmitFlag} className="mission2-form">
@@ -180,7 +180,7 @@ function Mission6() {
                   setFlagInput(e.target.value)
                   setSubmitError('')
                 }}
-                placeholder="The unchanging identifier (acronym)"
+                placeholder="Two options (abbrev,abbrev) — no spaces"
                 className="mission2-input mission3-flag-input"
                 autoComplete="off"
               />
@@ -208,9 +208,9 @@ function Mission6() {
 
         {isSuccess && (
           <div className="mission2-step mission2-step-enter mission2-success">
-            <h2 className="mission2-title">Mission 6 Complete</h2>
+            <h2 className="mission2-title">Mission 10 Complete</h2>
             <div className="mission2-rewards">
-              <p>✔ Mission 6 Complete</p>
+              <p>✔ Mission 10 Complete</p>
               <p>✔ Network Access Expanded</p>
             </div>
             <p className="mission2-congrats">{BOX3_MESSAGE(agentName)}</p>
@@ -228,4 +228,4 @@ function Mission6() {
   )
 }
 
-export default Mission6
+export default Mission10

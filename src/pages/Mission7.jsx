@@ -1,56 +1,59 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission6Bg from '../assets/m2bg.png'
+import mission7Bg from '../assets/m2bg.png'
 
 const TOTAL_STEPS = 3
-const CORRECT_FLAG = 'doi'
-const RESEARCH_SQUARE_URL = 'https://www.researchsquare.com/article/rs-100956/v1'
+const CORRECT_FLAG = 'retracted article'
+const PUBMED_URL = 'https://pubmed.ncbi.nlm.nih.gov/37534766/'
 
-const BOX1_TITLE = 'Mission 6: Follow the Signal Backward'
+const BOX1_TITLE = 'Mission 7: What No Longer Stands'
 const BOX1_BODY = (name) =>
-  `Agent ${name || 'Agent'}, you exposed coordination hiding behind authority.
+  `Agent ${name || 'Agent'},
 
-Now follow the signal backward.
+Some stories do not fade quietly. This one didn't.
 
-Every large misinformation wave starts somewhere.
-Before headlines. Before social media. Before public panic.
-GHIA has traced this narrative to its point of origin:
-a preprint that was shared widely before it was challenged and withdrawn.
+A scientific article gained rapid attention, heavy sharing, and public trust.
+It appeared in screenshots, blog posts, and social media threads.
+People still reference it.
 
-You are not here to judge the science.
-You are here to understand how claims persist even when credibility collapses.`
+There is just one problem.
+It no longer stands.
 
-const BOX2_TITLE = 'Find the Anchor'
-const BOX2_BODY = `Research Square – Elgazzar et al. ivermectin study.
+GHIA analysts traced a widely cited claim back to a single scientific paper.
+At the time of publication:
+• It appeared legitimate
+• It was hosted on a trusted database
+• It carried the weight of science
 
-This is the original preprint posting where the study first appeared —
-before journal publication and later withdrawal.
+The article became influential.
+Later, something changed.`
 
-Visit the site. Skim the abstract. Don't read in detail —
-look at the whole page as the primary source from which media creates news
-and social media spreads awareness.
+const BOX2_TITLE = 'Identify the Signal'
+const BOX2_BODY = `Here is the article as it exists today.
 
-This study was amplified, disputed, and withdrawn.
-Titles changed. Claims collapsed.
-One identifier remained constant across every version.
+While viewing the page:
+• Do not search for opinions
+• Look only at what PubMed itself displays
+• The page now contains a clear signal that something is wrong
 
-Find it.
+You are being asked to identify what makes this article sketchy today.
+Copy and paste the exact label shown on the page that indicates the article's current status.
 
-Journal articles can be withdrawn.
-Headlines can be rewritten.
-But citations still point somewhere.
-Locate the anchor that every citation must reference.
-
-The flag is something that doesn't change.`
+That text is your flag.`
 
 const BOX3_MESSAGE = (name) =>
   `Good work, Agent ${name || 'Agent'}.
 
-You learned that claims and headlines can change, but the original source leaves a fixed trail.
-Finding identifiers like the DOI — which never change — makes them key to trace where misinformation truly began.`
+You learned that information can keep influencing people even after it is no longer valid.
+A source may look trustworthy and familiar, but its status can change quietly.
+If you don't check carefully, old claims can continue to shape belief long after they stop being true.`
 
-function Mission6() {
+function normalizeFlag(s) {
+  return s.trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+function Mission7() {
   const navigate = useNavigate()
   const [agentName, setAgentName] = useState('Agent')
   const [step, setStep] = useState(1)
@@ -78,26 +81,26 @@ function Mission6() {
   const handleSubmitFlag = (e) => {
     e.preventDefault()
     setSubmitError('')
-    const normalized = flagInput.trim().toLowerCase()
+    const normalized = normalizeFlag(flagInput)
     if (!normalized) {
-      setSubmitError('Enter the unchanging identifier.')
+      setSubmitError('Enter the exact label shown on the PubMed page.')
       return
     }
     if (normalized === CORRECT_FLAG) {
       setIsSuccess(true)
     } else {
-      setSubmitError('Not yet. What identifier survives withdrawal, retraction, and republication?')
+      setSubmitError('Incorrect. Check what PubMed displays about the article\'s current status.')
     }
   }
 
-  const handleProceedToNextBriefing = () => navigate('/mission/7')
+  const handleProceedToNextBriefing = () => navigate('/mission/8')
 
   return (
     <div className="mission2-container mission3">
       <div className="mission2-bg">
         <div
           className="mission2-bg-image"
-          style={{ backgroundImage: `url(${mission6Bg})` }}
+          style={{ backgroundImage: `url(${mission7Bg})` }}
           aria-hidden="true"
         />
         <div className="mission2-gradient" />
@@ -164,12 +167,12 @@ function Mission6() {
               ))}
             </div>
             <a
-              href={RESEARCH_SQUARE_URL}
+              href={PUBMED_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mission2-link-card"
             >
-              <span className="mission2-link-label">📄 Open Research Square Preprint</span>
+              <span className="mission2-link-label">📄 Open PubMed Article</span>
               <span className="mission2-link-icon" aria-hidden="true">↗</span>
             </a>
             <form onSubmit={handleSubmitFlag} className="mission2-form">
@@ -180,7 +183,7 @@ function Mission6() {
                   setFlagInput(e.target.value)
                   setSubmitError('')
                 }}
-                placeholder="The unchanging identifier (acronym)"
+                placeholder="Exact label from the page"
                 className="mission2-input mission3-flag-input"
                 autoComplete="off"
               />
@@ -208,9 +211,9 @@ function Mission6() {
 
         {isSuccess && (
           <div className="mission2-step mission2-step-enter mission2-success">
-            <h2 className="mission2-title">Mission 6 Complete</h2>
+            <h2 className="mission2-title">Mission 7 Complete</h2>
             <div className="mission2-rewards">
-              <p>✔ Mission 6 Complete</p>
+              <p>✔ Mission 7 Complete</p>
               <p>✔ Network Access Expanded</p>
             </div>
             <p className="mission2-congrats">{BOX3_MESSAGE(agentName)}</p>
@@ -228,4 +231,4 @@ function Mission6() {
   )
 }
 
-export default Mission6
+export default Mission7

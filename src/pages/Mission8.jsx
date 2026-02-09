@@ -1,56 +1,61 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission6Bg from '../assets/m2bg.png'
+import mission8Bg from '../assets/m2bg.png'
 
 const TOTAL_STEPS = 3
-const CORRECT_FLAG = 'doi'
-const RESEARCH_SQUARE_URL = 'https://www.researchsquare.com/article/rs-100956/v1'
+const CORRECT_FLAG = 'novamedra'
+const PDF_URL = '/Internal_Hospital_Notice.pdf'
 
-const BOX1_TITLE = 'Mission 6: Follow the Signal Backward'
+const BOX1_TITLE = 'Mission 8: The Black Box Illusion'
 const BOX1_BODY = (name) =>
-  `Agent ${name || 'Agent'}, you exposed coordination hiding behind authority.
+  `Agent ${name || 'Agent'},
 
-Now follow the signal backward.
+An internal hospital notice surfaced online overnight.
+It was never meant for the public.
 
-Every large misinformation wave starts somewhere.
-Before headlines. Before social media. Before public panic.
-GHIA has traced this narrative to its point of origin:
-a preprint that was shared widely before it was challenged and withdrawn.
+Screenshots spread quickly, accompanied by claims that hospitals were hiding critical information.
+The blacked-out sections made it feel dangerous.
+The redactions made it feel real.
 
-You are not here to judge the science.
-You are here to understand how claims persist even when credibility collapses.`
+GHIA intercepted the original document before further circulation.
 
-const BOX2_TITLE = 'Find the Anchor'
-const BOX2_BODY = `Research Square – Elgazzar et al. ivermectin study.
+FIELD CONTEXT
+The file claims to be an internal hospital notice released without authorization.
+According to those sharing it:
+• Sensitive guidance was intentionally hidden
+• Information was removed to protect institutional interests
+• The truth is concealed behind redactions
 
-This is the original preprint posting where the study first appeared —
-before journal publication and later withdrawal.
+But leaks often rely on appearance rather than technique.`
 
-Visit the site. Skim the abstract. Don't read in detail —
-look at the whole page as the primary source from which media creates news
-and social media spreads awareness.
+const BOX2_TITLE = 'Inspect the Redaction'
+const BOX2_BODY = `Download the PDF and inspect the document itself.
 
-This study was amplified, disputed, and withdrawn.
-Titles changed. Claims collapsed.
-One identifier remained constant across every version.
+You are not being asked to judge the message.
+You are being asked to examine how the redaction was done.
 
-Find it.
+Find the text hidden beneath the redaction exactly as it appears.
+That text is your flag.
 
-Journal articles can be withdrawn.
-Headlines can be rewritten.
-But citations still point somewhere.
-Locate the anchor that every citation must reference.
+Redaction only works if information is actually removed.
+Black boxes can hide text visually while leaving it fully accessible.
+Many "leaked" documents rely on appearance rather than security.
 
-The flag is something that doesn't change.`
+Inspection matters more than outrage.`
 
 const BOX3_MESSAGE = (name) =>
   `Good work, Agent ${name || 'Agent'}.
 
-You learned that claims and headlines can change, but the original source leaves a fixed trail.
-Finding identifiers like the DOI — which never change — makes them key to trace where misinformation truly began.`
+You uncovered a disclaimer that was never meant for the public to see.
+This shows how health misinformation often hides responsibility while shaping belief.
+When advice is shared without accountability, the risk is pushed onto the audience.`
 
-function Mission6() {
+function normalizeFlag(s) {
+  return s.trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+function Mission8() {
   const navigate = useNavigate()
   const [agentName, setAgentName] = useState('Agent')
   const [step, setStep] = useState(1)
@@ -78,26 +83,26 @@ function Mission6() {
   const handleSubmitFlag = (e) => {
     e.preventDefault()
     setSubmitError('')
-    const normalized = flagInput.trim().toLowerCase()
+    const normalized = normalizeFlag(flagInput)
     if (!normalized) {
-      setSubmitError('Enter the unchanging identifier.')
+      setSubmitError('Enter the text hidden beneath the redaction.')
       return
     }
     if (normalized === CORRECT_FLAG) {
       setIsSuccess(true)
     } else {
-      setSubmitError('Not yet. What identifier survives withdrawal, retraction, and republication?')
+      setSubmitError('Incorrect. Inspect the PDF — is the redaction truly secure?')
     }
   }
 
-  const handleProceedToNextBriefing = () => navigate('/mission/7')
+  const handleProceedToNextBriefing = () => navigate('/mission/9')
 
   return (
     <div className="mission2-container mission3">
       <div className="mission2-bg">
         <div
           className="mission2-bg-image"
-          style={{ backgroundImage: `url(${mission6Bg})` }}
+          style={{ backgroundImage: `url(${mission8Bg})` }}
           aria-hidden="true"
         />
         <div className="mission2-gradient" />
@@ -164,12 +169,12 @@ function Mission6() {
               ))}
             </div>
             <a
-              href={RESEARCH_SQUARE_URL}
+              href={PDF_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mission2-link-card"
             >
-              <span className="mission2-link-label">📄 Open Research Square Preprint</span>
+              <span className="mission2-link-label">📄 Download Internal Hospital Notice (PDF)</span>
               <span className="mission2-link-icon" aria-hidden="true">↗</span>
             </a>
             <form onSubmit={handleSubmitFlag} className="mission2-form">
@@ -180,7 +185,7 @@ function Mission6() {
                   setFlagInput(e.target.value)
                   setSubmitError('')
                 }}
-                placeholder="The unchanging identifier (acronym)"
+                placeholder="Text beneath the redaction (lowercase)"
                 className="mission2-input mission3-flag-input"
                 autoComplete="off"
               />
@@ -208,9 +213,9 @@ function Mission6() {
 
         {isSuccess && (
           <div className="mission2-step mission2-step-enter mission2-success">
-            <h2 className="mission2-title">Mission 6 Complete</h2>
+            <h2 className="mission2-title">Mission 8 Complete</h2>
             <div className="mission2-rewards">
-              <p>✔ Mission 6 Complete</p>
+              <p>✔ Mission 8 Complete</p>
               <p>✔ Network Access Expanded</p>
             </div>
             <p className="mission2-congrats">{BOX3_MESSAGE(agentName)}</p>
@@ -228,4 +233,4 @@ function Mission6() {
   )
 }
 
-export default Mission6
+export default Mission8

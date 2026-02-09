@@ -8,6 +8,11 @@ import Mission3 from './pages/Mission3'
 import Mission4 from './pages/Mission4'
 import Mission5 from './pages/Mission5'
 import Mission6 from './pages/Mission6'
+import Mission7 from './pages/Mission7'
+import Mission8 from './pages/Mission8'
+import Mission9 from './pages/Mission9'
+import Mission10 from './pages/Mission10'
+import Mission11 from './pages/Mission11'
 import Mission from './pages/Mission'
 
 function App() {
@@ -23,6 +28,11 @@ function App() {
         <Route path="/mission/4" element={<Mission4 />} />
         <Route path="/mission/5" element={<Mission5 />} />
         <Route path="/mission/6" element={<Mission6 />} />
+        <Route path="/mission/7" element={<Mission7 />} />
+        <Route path="/mission/8" element={<Mission8 />} />
+        <Route path="/mission/9" element={<Mission9 />} />
+        <Route path="/mission/10" element={<Mission10 />} />
+        <Route path="/mission/11" element={<Mission11 />} />
         <Route path="/mission/:id" element={<Mission />} />
       </Routes>
     </Router>

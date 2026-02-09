@@ -1,56 +1,46 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/mission2.css'
-import mission6Bg from '../assets/m2bg.png'
+import mission9Bg from '../assets/m2bg.png'
 
 const TOTAL_STEPS = 3
-const CORRECT_FLAG = 'doi'
-const RESEARCH_SQUARE_URL = 'https://www.researchsquare.com/article/rs-100956/v1'
+const CORRECT_FLAG = 'DISCLAIMER:NONADVISORY'
+const CRYPTII_URL = 'https://cryptii.com/pipes/caesar-cipher'
+const ENCODED_MSG = 'QVFPYNVZRE: ABANQIVFBEL'
 
-const BOX1_TITLE = 'Mission 6: Follow the Signal Backward'
+const BOX1_TITLE = 'Mission 9: Recover the Transmission'
 const BOX1_BODY = (name) =>
-  `Agent ${name || 'Agent'}, you exposed coordination hiding behind authority.
+  `Agent ${name || 'Agent'},
 
-Now follow the signal backward.
+The Anecdote Overload operation confirmed our suspicion:
+these narratives are not organic.
 
-Every large misinformation wave starts somewhere.
-Before headlines. Before social media. Before public panic.
-GHIA has traced this narrative to its point of origin:
-a preprint that was shared widely before it was challenged and withdrawn.
+GHIA has intercepted an internal message used by The Distortion Network to coordinate
+misinformation drops across platforms. The message was not meant to be secret forever —
+only long enough to synchronize action.
 
-You are not here to judge the science.
-You are here to understand how claims persist even when credibility collapses.`
+This transmission contains direct instructions for how false narratives are amplified.
+Your task is simple and critical:
 
-const BOX2_TITLE = 'Find the Anchor'
-const BOX2_BODY = `Research Square – Elgazzar et al. ivermectin study.
+Recover the message exactly as it was intended to be read.
+Speed matters. Once this instruction is understood by their operators, the next wave goes live.`
 
-This is the original preprint posting where the study first appeared —
-before journal publication and later withdrawal.
+const BOX2_TITLE = 'Decode the Intercepted Message'
+const BOX2_BODY = `Decode the intercepted message and submit the recovered instruction.
 
-Visit the site. Skim the abstract. Don't read in detail —
-look at the whole page as the primary source from which media creates news
-and social media spreads awareness.
+Use the Caesar cipher tool below — it allows you to shift letters until the hidden instruction becomes readable.
 
-This study was amplified, disputed, and withdrawn.
-Titles changed. Claims collapsed.
-One identifier remained constant across every version.
-
-Find it.
-
-Journal articles can be withdrawn.
-Headlines can be rewritten.
-But citations still point somewhere.
-Locate the anchor that every citation must reference.
-
-The flag is something that doesn't change.`
+Recover the message exactly as written.
+Submit the decoded message in ALL CAPS, exactly as written, with spaces preserved.`
 
 const BOX3_MESSAGE = (name) =>
   `Good work, Agent ${name || 'Agent'}.
 
-You learned that claims and headlines can change, but the original source leaves a fixed trail.
-Finding identifiers like the DOI — which never change — makes them key to trace where misinformation truly began.`
+You uncovered a disclaimer that was never meant for the public to see.
+This shows how health misinformation often hides responsibility while shaping belief.
+When advice is shared without accountability, the risk is pushed onto the audience.`
 
-function Mission6() {
+function Mission9() {
   const navigate = useNavigate()
   const [agentName, setAgentName] = useState('Agent')
   const [step, setStep] = useState(1)
@@ -78,26 +68,26 @@ function Mission6() {
   const handleSubmitFlag = (e) => {
     e.preventDefault()
     setSubmitError('')
-    const normalized = flagInput.trim().toLowerCase()
-    if (!normalized) {
-      setSubmitError('Enter the unchanging identifier.')
+    const trimmed = flagInput.trim()
+    if (!trimmed) {
+      setSubmitError('Enter the decoded message in ALL CAPS.')
       return
     }
-    if (normalized === CORRECT_FLAG) {
+    if (trimmed === CORRECT_FLAG) {
       setIsSuccess(true)
     } else {
-      setSubmitError('Not yet. What identifier survives withdrawal, retraction, and republication?')
+      setSubmitError('Incorrect. Shift the letters in the Caesar cipher until it reads clearly.')
     }
   }
 
-  const handleProceedToNextBriefing = () => navigate('/mission/7')
+  const handleProceedToNextBriefing = () => navigate('/mission/10')
 
   return (
     <div className="mission2-container mission3">
       <div className="mission2-bg">
         <div
           className="mission2-bg-image"
-          style={{ backgroundImage: `url(${mission6Bg})` }}
+          style={{ backgroundImage: `url(${mission9Bg})` }}
           aria-hidden="true"
         />
         <div className="mission2-gradient" />
@@ -163,13 +153,18 @@ function Mission6() {
                 </p>
               ))}
             </div>
+            <div className="mission4-citation-block" style={{ marginBottom: '1rem' }}>
+              <pre className="mission4-citation-pre" style={{ margin: 0 }}>
+                {ENCODED_MSG}
+              </pre>
+            </div>
             <a
-              href={RESEARCH_SQUARE_URL}
+              href={CRYPTII_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mission2-link-card"
             >
-              <span className="mission2-link-label">📄 Open Research Square Preprint</span>
+              <span className="mission2-link-label">🔐 Open Caesar Cipher Decoder</span>
               <span className="mission2-link-icon" aria-hidden="true">↗</span>
             </a>
             <form onSubmit={handleSubmitFlag} className="mission2-form">
@@ -180,7 +175,7 @@ function Mission6() {
                   setFlagInput(e.target.value)
                   setSubmitError('')
                 }}
-                placeholder="The unchanging identifier (acronym)"
+                placeholder="Decoded message (ALL CAPS)"
                 className="mission2-input mission3-flag-input"
                 autoComplete="off"
               />
@@ -208,9 +203,9 @@ function Mission6() {
 
         {isSuccess && (
           <div className="mission2-step mission2-step-enter mission2-success">
-            <h2 className="mission2-title">Mission 6 Complete</h2>
+            <h2 className="mission2-title">Mission 9 Complete</h2>
             <div className="mission2-rewards">
-              <p>✔ Mission 6 Complete</p>
+              <p>✔ Mission 9 Complete</p>
               <p>✔ Network Access Expanded</p>
             </div>
             <p className="mission2-congrats">{BOX3_MESSAGE(agentName)}</p>
@@ -228,4 +223,4 @@ function Mission6() {
   )
 }
 
-export default Mission6
+export default Mission9
